@@ -1,6 +1,5 @@
-import { MainScene } from './main.js'; // Import the scene class
 
-// --- Screen Management Logic ---
+import { MainScene } from './main.js?v=1'; // Import the scene class
 
 const screens = {
     start: document.getElementById('startScreen'),

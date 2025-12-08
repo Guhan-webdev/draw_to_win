@@ -1,5 +1,3 @@
-import bg from './assets/game.jpeg';
-import img_path from './assets/path.png';
 
 export class MainScene extends Phaser.Scene {
     constructor() {
@@ -16,8 +14,8 @@ export class MainScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bg', bg);
-        this.load.image('mask', img_path);
+        this.load.image('bg', './assets/game.jpeg');
+        this.load.image('mask', './assets/path.png');
     }
 
     create() {
