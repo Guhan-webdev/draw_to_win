@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import bg from './assets/game.jpeg';
 import img_path from './assets/path.png';
 
