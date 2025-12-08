@@ -72,7 +72,7 @@ export class MainScene extends Phaser.Scene {
             }
         }
         this.totalPathPixels = count;
-        console.log(`Target Pixels to cover: ${this.totalPathPixels}`);
+        // console.log(`Target Pixels to cover: ${this.totalPathPixels}`);
     }
 
     // 🆕 Helper to calculate Win/Lose
@@ -85,14 +85,14 @@ export class MainScene extends Phaser.Scene {
         if (this.totalPathPixels === 0) return;
 
         const percentage = (this.coveredPixels.size / this.totalPathPixels) * 100;
-        console.log(`Covered: ${percentage.toFixed(2)}%`);
+        // console.log(`Covered: ${percentage.toFixed(2)}%`);
 
         const isWin = percentage >= 0.5;
 
         if (isWin) {
-            console.log("🎉 WIN! You covered over 60%!");
+            // console.log("🎉 WIN! You covered over 60%!");
         } else {
-            console.log("❌ LOSE! Coverage too low.");
+            // console.log("❌ LOSE! Coverage too low.");
             this.renderTexture.clear(); // Reset visual line on loss
         }
 
