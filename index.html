@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phaser Game</title>
+    <link rel="stylesheet" href="./style.css" />
+
+</head>
+
+<body>
+
+    <section id="startScreen" class="screen active">
+        <h1>Draw to Join</h1>
+
+        <div class="rules-container">
+            <h2>📋 How to Play</h2>
+            <ul class="rules-list">
+                <li>
+                    <span class="rule-icon">🖱️</span>
+                    <span class="rule-text"><strong>Draw the Path:</strong> Click and hold your mouse to draw along the
+                        black path</span>
+                </li>
+                <li>
+                    <span class="rule-icon">✅</span>
+                    <span class="rule-text"><strong>Win Condition:</strong> Cover at least 50% of the path to
+                        win</span>
+                </li>
+                <li>
+                    <span class="rule-icon">❌</span>
+                    <span class="rule-text"><strong>Lose Condition:</strong> If you go off the black path, you lose
+                        immediately</span>
+                </li>
+                <li>
+                    <span class="rule-icon">🎯</span>
+                    <span class="rule-text"><strong>Goal:</strong> Trace as much of the path as possible without going
+                        outside</span>
+                </li>
+                <li>
+                    <span class="rule-icon">🔄</span>
+                    <span class="rule-text"><strong>Release:</strong> When you release the mouse, your score will be
+                        calculated</span>
+                </li>
+            </ul>
+        </div>
+
+        <button id="startBtn">Start Game</button>
+    </section>
+
+    <section id="gameScreen" class="screen">
+        <div id="gameCanvas"></div>
+        <!-- <button id="endBtn" style="margin-top: 20px;">End Game</button> -->
+    </section>
+
+    <section id="endScreen" class="screen">
+        <h1 id="resultTitle">Game Over</h1>
+        <p id="resultMessage" style="font-size: 1.5rem;">Thanks for playing!</p>
+        <p id="resultPercentage" style="font-size: 2rem; font-weight: bold; margin: 20px 0;"></p>
+        <button id="restartBtn">Return to Start</button>
+    </section>
+
+    <script src="./game.js" type="module"></script>
+</body>
+
+</html>
