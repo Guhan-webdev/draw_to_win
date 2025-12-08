@@ -1,6 +1,3 @@
-// game.js
-
-import Phaser from 'phaser';
 import { MainScene } from './main'; // Import the scene class
 
 // --- Screen Management Logic ---
