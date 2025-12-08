@@ -1,4 +1,4 @@
-import { MainScene } from './main'; // Import the scene class
+import { MainScene } from './main.js'; // Import the scene class
 
 // --- Screen Management Logic ---
 
