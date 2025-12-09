@@ -2,7 +2,7 @@
 export class MainScene extends Phaser.Scene {
     constructor() {
         super({ key: 'MainScene' });
-        this.pointerDown = false;
+        this.isDrawing = false;
         this.lastPointer = null;
         this.renderTexture = null;
         this.graphics = null;
@@ -38,21 +38,30 @@ export class MainScene extends Phaser.Scene {
         // 🆕 4. Count the total path pixels (The "100%" Value)
         this.countTotalPathPixels(width, height);
 
-        // Input Listeners
+        // BAD (Mouse only):
+        // this.input.on('mousedown', ...); 
+
+        // GOOD (Works for Mouse AND Touch):
         this.input.on('pointerdown', (pointer) => {
-            this.pointerDown = true;
+            // Your drawing logic here
+            this.isDrawing = true;
             this.lastPointer = { x: pointer.x, y: pointer.y };
-            this.coveredPixels.clear(); // Reset progress for new attempt
+            // pointer.x and pointer.y work for both mouse and finger
+        });
+
+        this.input.on('pointermove', (pointer) => {
+            if (this.isDrawing) {
+                // Draw line to pointer.x, pointer.y
+                // Determine if we need to call update manually or let the update loop handle it
+                // For this implementation, the logic is in update(), so we just track state here
+            }
         });
 
         this.input.on('pointerup', () => {
-            this.handleAttemptEnd(); // 🆕 Check win condition on release
+            this.isDrawing = false;
+            this.lastPointer = null;
+            // Check win condition
         });
-
-        const endBtn = document.getElementById('endBtn');
-        if (endBtn) {
-            endBtn.onclick = () => { if (window.endGame) window.endGame(); };
-        }
     }
 
     // 🆕 Helper function to count all black pixels in the mask
@@ -72,7 +81,7 @@ export class MainScene extends Phaser.Scene {
             }
         }
         this.totalPathPixels = count;
-        // console.log(`Target Pixels to cover: ${this.totalPathPixels}`);
+        console.log(`Target Pixels to cover: ${this.totalPathPixels}`);
     }
 
     // 🆕 Helper to calculate Win/Lose
@@ -85,14 +94,14 @@ export class MainScene extends Phaser.Scene {
         if (this.totalPathPixels === 0) return;
 
         const percentage = (this.coveredPixels.size / this.totalPathPixels) * 100;
-        // console.log(`Covered: ${percentage.toFixed(2)}%`);
+        console.log(`Covered: ${percentage.toFixed(2)}%`);
 
         const isWin = percentage >= 0.5;
 
         if (isWin) {
-            // console.log("🎉 WIN! You covered over 60%!");
+            console.log("🎉 WIN! You covered over 60%!");
         } else {
-            // console.log("❌ LOSE! Coverage too low.");
+            console.log("❌ LOSE! Coverage too low.");
             this.renderTexture.clear(); // Reset visual line on loss
         }
 
@@ -103,7 +112,7 @@ export class MainScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        if (this.pointerDown && this.lastPointer) {
+        if (this.isDrawing && this.lastPointer) {
             const pointer = this.input.activePointer;
 
             if (pointer.x !== this.lastPointer.x || pointer.y !== this.lastPointer.y) {
