@@ -1,67 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Phaser Game</title>
-    <!-- Phaser CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
-    <link rel="stylesheet" href="./style.css" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Path Tracer Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <section id="startScreen" class="screen active">
+    <div id="startScreen" class="screen active">
         <h1>Draw to Join</h1>
-
+        
         <div class="rules-container">
-            <h2>📋 How to Play</h2>
+            <h2>📜 How to Play</h2>
             <ul class="rules-list">
                 <li>
                     <span class="rule-icon">🖱️</span>
-                    <span class="rule-text"><strong>Draw the Path:</strong> Click and hold your mouse to draw along the
-                        black path</span>
+                    <span class="rule-text">
+                        <strong>Draw the Path:</strong>
+                        Click and hold to trace the line.
+                    </span>
                 </li>
                 <li>
                     <span class="rule-icon">✅</span>
-                    <span class="rule-text"><strong>Win Condition:</strong> Cover at least 50% of the path to
-                        win</span>
+                    <span class="rule-text">
+                        <strong>Win Condition:</strong>
+                        Cover at least 80% of the path.
+                    </span>
                 </li>
                 <li>
                     <span class="rule-icon">❌</span>
-                    <span class="rule-text"><strong>Lose Condition:</strong> If you go off the black path, you lose
-                        immediately</span>
-                </li>
-                <li>
-                    <span class="rule-icon">🎯</span>
-                    <span class="rule-text"><strong>Goal:</strong> Trace as much of the path as possible without going
-                        outside</span>
-                </li>
-                <li>
-                    <span class="rule-icon">🔄</span>
-                    <span class="rule-text"><strong>Release:</strong> When you release the mouse, your score will be
-                        calculated</span>
+                    <span class="rule-text">
+                        <strong>Lose Condition:</strong>
+                        Don't go off the black path!
+                    </span>
                 </li>
             </ul>
         </div>
 
         <button id="startBtn">Start Game</button>
-    </section>
+    </div>
 
-    <section id="gameScreen" class="screen">
+    <div id="gameScreen" class="screen">
         <div id="gameCanvas"></div>
-    </section>
+    </div>
 
-    <section id="endScreen" class="screen">
+    <div id="endScreen" class="screen">
         <h1 id="resultTitle">Game Over</h1>
-        <p id="resultMessage" style="font-size: 1.5rem;">Thanks for playing!</p>
-        <p id="resultPercentage" style="font-size: 2rem; font-weight: bold; margin: 20px 0;"></p>
+        <p id="resultMessage">You went off the path.</p>
+        <h2 id="resultPercentage" style="color: #ccc; margin-top: 0;">0%</h2>
+        
         <button id="restartBtn">Return to Start</button>
-    </section>
+    </div>
 
-    <script src="./game.js?v=1" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <script type="module" src="game.js"></script>
 </body>
-
 </html>
