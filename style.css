@@ -1,183 +1,123 @@
-/* 📱 Ultra-Compact Android Responsive CSS 📱 */
-
 /* --- Universal Reset --- */
 body {
     margin: 0;
-    /* Prevent full page scroll; we will scroll inside specific elements if needed */
-    overflow: hidden; 
+    overflow: hidden;
     height: 100vh;
     width: 100vw;
     background-color: #1a1a1a;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     -webkit-tap-highlight-color: transparent;
-    /* Center the main container */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* --- Full-Screen Section Styles --- */
+/* --- Screen Container --- */
 .screen {
-    display: none;
+    display: none; /* Hidden by default */
     height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
     box-sizing: border-box;
-    padding: 10px; /* Minimal padding for edges */
+    padding: 15px;
+    
+    /* MOBILE ALIGNMENT */
     flex-direction: column;
-    justify-content: center; /* Vertically center everything */
+    justify-content: flex-start; 
     align-items: center;
+    padding-top: max(20px, env(safe-area-inset-top));
+
+    /* FIX FOR OVERLAP: Solid background and layering */
+    background-color: #1a1a1a; 
+    z-index: 10; 
 }
 
 .screen.active {
-    display: flex;
+    display: flex; /* Only the active screen is visible */
+    z-index: 20;   /* Active screen sits on top */
 }
 
-/* --- Title Styling (Tighter) --- */
+/* --- Title Styling --- */
 h1 {
-    /* Reduced size: 6vw is smaller than previous 8vw */
-    font-size: 6vw; 
-    /* clamp ensures it never gets too tiny on watch/small phone, nor too huge on tablet */
-    font-size: clamp(24px, 6vw, 40px); 
-    margin: 0 0 1.5vh 0; /* Very tight bottom margin */
-    padding: 0;
-    line-height: 1.1;
+    font-size: clamp(32px, 8vw, 48px);
+    margin: 0 0 2vh 0;
+    text-align: center;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* --- Game Canvas: "Wholly Scale Down" Logic --- */
-#gameCanvas {
-    /* 1. Constraint: Never exceed 95% of screen width */
-    max-width: 95vw;
-    /* 2. Constraint: Never exceed 80% of screen height (leaves room for UI) */
-    max-height: 80vh;
-    
-    /* 3. Maintain Aspect Ratio (Width / Height) */
-    /* Replace 510/600 with your actual game resolution */
-    aspect-ratio: 510 / 600; 
-    
-    /* 4. Fill available space up to constraints */
-    width: 100%;
-    height: auto; 
-    
-    /* Visuals */
-    border: 2px solid rgba(255,255,255,0.2);
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    display: block;
-    /* Important: prevents canvas from stretching weirdly */
-    object-fit: contain; 
-}
-
-/* --- Rules Container (Internal Scrolling) --- */
+/* --- Rules Container --- */
 .rules-container {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    padding: 3vw; 
-    width: 90vw;
-    max-width: 500px;
-    
-    /* This is the key to "shrinking tighter": */
-    /* If content is too long, scroll INSIDE the box, don't push button off screen */
-    max-height: 55vh; 
-    overflow-y: auto; 
-    
-    margin-bottom: 2vh; /* Space between rules and button */
-    backdrop-filter: blur(10px);
+    padding: 15px;
+    width: 100%;
+    max-width: 400px;
+    flex: 1; 
+    overflow-y: auto; /* Scroll inside if too tall */
+    margin-bottom: 20px;
 }
 
 .rules-container h2 {
     margin-top: 0;
-    margin-bottom: 1.5vh;
-    font-size: clamp(18px, 5vw, 24px); /* Tighter font */
+    font-size: 1.2rem;
     color: #667eea;
+    text-align: center;
 }
 
 .rules-list {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 
 .rules-list li {
     display: flex;
-    align-items: center; /* Align icon and text center */
-    margin-bottom: 1vh; /* Very tight spacing */
-    padding: 2vw;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 6px;
 }
 
-.rule-icon {
-    font-size: clamp(16px, 4vw, 20px);
-    margin-right: 3vw;
-    flex-shrink: 0;
-}
+.rule-icon { margin-right: 15px; font-size: 1.2rem; }
+.rule-text { font-size: 0.9rem; line-height: 1.3; }
+.rule-text strong { color: #667eea; display: block; }
 
-.rule-text {
-    font-size: clamp(12px, 3.5vw, 16px); /* Smaller, readable text */
-    line-height: 1.3;
-    text-align: left;
-}
-
-.rule-text strong {
-    color: #667eea;
-    display: block; /* Keeps 'Goal', 'Controls' on own line */
-    font-size: 0.9em;
-    opacity: 0.9;
-}
-
-/* --- Compact Button Styling --- */
+/* --- Buttons --- */
 button {
-    padding: 12px 24px;
-    /* Font size relative to height ensures it fits on short screens */
-    font-size: clamp(16px, 2.5vh, 22px); 
+    padding: 15px 40px;
+    font-size: 1.1rem;
     cursor: pointer;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    border-radius: 50px; /* Pill shape is often better for touch */
+    border-radius: 50px;
     font-weight: bold;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    width: auto; /* Let text define width */
-    min-width: 120px;
-    
-    /* Prevent button from hugging the bottom edge too closely */
-    margin-bottom: 2vh; 
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+button:active { transform: scale(0.96); }
+
+/* --- Game Canvas --- */
+#gameCanvas {
+    width: 100%;
+    max-width: 100%;
+    height: 80vh; 
+    margin: 0 auto;
+    display: block;
 }
 
-button:active {
-    transform: scale(0.95);
-}
-
-/* --- Scrollbar Styling (Make it subtle for the rules box) --- */
-.rules-container::-webkit-scrollbar {
-    width: 6px;
-}
-.rules-container::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.05); 
-}
-.rules-container::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.2); 
-    border-radius: 3px;
-}
-
-/* --- Desktop/Tablet Tweaks --- */
+/* --- Desktop Tweaks --- */
 @media (min-width: 768px) {
-    .rules-container {
-        padding: 20px;
-        max-height: none; /* Allow full height on big screens */
+    .screen { justify-content: center; padding-top: 0; }
+    #gameCanvas {
+        width: 360px; height: 640px;
+        border: 4px solid #333;
+        border-radius: 8px;
     }
-    .rules-list li {
-        padding: 10px;
-    }
-    button {
-        padding: 15px 40px;
-    }
+    .rules-container { flex: none; height: auto; }
 }
