@@ -1,19 +1,30 @@
-/* Basic styling for the full-screen sections */
+/* 📱 Full CSS Code Optimized for Android Responsiveness 📱 */
+
+/* --- Universal Reset and Basic Styling --- */
 body {
     margin: 0;
-    overflow: hidden; /* Hide scrollbars */
+    /* Use 'auto' or 'scroll' instead of 'hidden' if content might exceed the screen height on small phones */
+    /* For a single-screen game, 'hidden' is fine, but for full responsiveness, this is safer: */
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 100vh; /* Ensures body covers the whole viewport height */
     background-color: #1a1a1a;
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A more readable font */
+    font-size: 16px; /* Base font size */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
 }
 
+/* --- Full-Screen Section Styles (Optimized with Flex and Viewport Units) --- */
 .screen {
     display: none; /* Hidden by default */
-    height: 100vh;
-    width: 100%;
+    min-height: 100vh; /* Use min-height for better adaptability */
+    width: 100vw; /* Use 100vw for full width */
     position: absolute;
     top: 0;
     left: 0;
+    box-sizing: border-box; /* Include padding/border in element's total width/height */
+    padding: 20px; /* Add some padding for small screens */
 }
 
 .screen.active {
@@ -21,32 +32,58 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center; /* Center text within the screen */
 }
 
-/* Style for the game canvas container */
+/* --- Title Styling (Responsive Font Size) --- */
+h1 {
+    /* Use 'vw' (viewport width) for a size that scales with the screen */
+    font-size: 8vw; 
+    margin-bottom: 3vh; /* Responsive margin */
+    padding: 0 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* --- Game Canvas Container (Using Max-Width and Responsive Units) --- */
 #gameCanvas {
-    /* Set dimensions for the container, Phaser will insert canvas here */
-    width: 510px; 
-    height: 600px;
+    /* Set dimensions using percentages for flow, max-width for constraint */
+    width: 90vw; /* Takes 90% of the viewport width */
+    max-width: 510px; /* Max size is still 510px for desktop-like view */
+    /* Calculate height based on 510x600 aspect ratio (approx 1.17:1).
+       This is a rough approach, Phaser itself handles the canvas sizing best.
+       This value ensures it looks OK if Phaser hasn't run yet.
+    */
+    aspect-ratio: 510 / 600; 
+    height: auto; /* Let the aspect-ratio or Phaser define the height */
+    max-height: 600px;
+    
     border: 2px solid white;
     overflow: hidden;
+    margin: 0 auto; /* Center it horizontally */
 }
 
-/* Style for buttons */
+/* --- Button Styling (Responsive Padding and Font Size) --- */
 button {
-    padding: 12px 30px;
-    font-size: 1.2rem;
+    padding: 3vw 6vw; /* Padding scales with viewport width */
+    font-size: 4.5vw; /* Font size scales with viewport width */
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 3vh; /* Responsive margin */
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
     border-radius: 8px;
     font-weight: bold;
     transition: transform 0.2s, box-shadow 0.2s;
+    /* Ensure it doesn't get too wide on small screens */
+    width: 80%;
+    max-width: 300px; 
 }
 
 button:hover {
+    /* Hover effects are generally less useful on touch screens, but kept for consistency */
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
@@ -55,21 +92,22 @@ button:active {
     transform: translateY(0);
 }
 
-/* Rules Container Styling */
+/* --- Rules Container Styling (Responsive Max-Width and Padding) --- */
 .rules-container {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    padding: 25px 35px;
-    margin: 20px 0;
+    padding: 4vw; /* Padding scales with viewport width */
+    margin: 3vh 0;
+    width: 90vw; /* Use 90% of screen width */
     max-width: 600px;
     backdrop-filter: blur(10px);
 }
 
 .rules-container h2 {
     margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
+    margin-bottom: 3vh;
+    font-size: 6vw; /* Responsive font size */
     text-align: center;
     color: #667eea;
 }
@@ -78,13 +116,14 @@ button:active {
     list-style: none;
     padding: 0;
     margin: 0;
+    text-align: left; /* Ensure list text aligns left */
 }
 
 .rules-list li {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 15px;
-    padding: 12px;
+    margin-bottom: 2vh;
+    padding: 3vw;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 8px;
     transition: background 0.3s, transform 0.2s;
@@ -92,32 +131,51 @@ button:active {
 
 .rules-list li:hover {
     background: rgba(255, 255, 255, 0.08);
-    transform: translateX(5px);
+    /* Removing the translateX(5px) on hover for a cleaner mobile experience,
+       as it can sometimes be triggered accidentally on tap. */
+    /* transform: translateX(5px); */ 
 }
 
 .rule-icon {
-    font-size: 1.5rem;
-    margin-right: 15px;
+    font-size: 5vw; /* Responsive icon size */
+    margin-right: 4vw;
     flex-shrink: 0;
 }
 
 .rule-text {
-    font-size: 1rem;
+    font-size: 4vw; /* Responsive text size */
     line-height: 1.5;
 }
 
 .rule-text strong {
     color: #667eea;
     display: block;
-    margin-bottom: 3px;
+    margin-bottom: 0.5vh;
 }
 
-/* Title styling */
-h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+/* --- Media Query for Larger Screens (Tablets/Landscape Phones/Desktop) --- */
+/* This ensures the design scales up nicely on wider screens without text becoming too huge */
+@media (min-width: 600px) {
+    h1 {
+        font-size: 48px; /* Fixed size for larger screens */
+    }
+
+    button {
+        padding: 12px 30px;
+        font-size: 1.2rem;
+        width: auto;
+    }
+
+    .rules-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .rule-icon {
+        font-size: 1.5rem;
+        margin-right: 15px;
+    }
+    
+    .rule-text {
+        font-size: 1rem;
+    }
 }
